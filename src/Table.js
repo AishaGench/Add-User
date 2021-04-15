@@ -11,13 +11,26 @@ const TableHeader = () => {
     );
 }
 
-const TableBody = () => { 
+const TableBody = (props) => { 
+
+  console.log(props.users);
+  const handleDelete=(name)=>{
+    props.delete(name);
+    
+
+  }
     return (
         <tbody>
-           <tr>
-            <td></td>
-            <td></td>
-          </tr>
+          {props.users.map((item,index)=>{
+             return (
+            <tr key={index}>
+             <td>{item.name}</td>
+             <td>{item.job}</td>
+             <td><button onClick={()=>handleDelete(item.name)}>DELETE</button></td>
+            </tr>
+             )
+          })}
+           
         </tbody>
       )
 }
@@ -27,7 +40,7 @@ class Table extends Component {
       return (
         <table>
           <TableHeader />
-          <TableBody />
+          <TableBody users={this.props.users} delete={this.props.delete}/>
         </table>
       )
     }
